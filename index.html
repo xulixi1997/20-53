@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重庆企易客网络科技有限公司 | 定义未来的产品设计</title>
+    <meta name="description" content="重庆企易客网络科技有限公司专注于高端产品设计、用户体验优化及数字化转型。">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS (Direct CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0B1120',      // 深邃蓝黑背景
+                            card: '#162032',      // 卡片背景
+                            accent: '#38bdf8',    // 亮蓝
+                            purple: '#818cf8',    // 科技紫
+                            text: '#e2e8f0',      // 主要文字
+                            muted: '#94a3b8'      // 次要文字
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans SC"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "linear-gradient(to right bottom, rgba(11, 17, 32, 0.9), rgba(11, 17, 32, 0.8)), url('https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1920')",
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles & Utilities */
+        body {
+            background-color: #0B1120;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B1120; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+
+        .glass-nav {
+            background: rgba(11, 17, 32, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 41, 59, 0.6);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px -10px rgba(56, 189, 248, 0.15);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .blob {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.4;
+            animation: float 10s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+
+        /* Marquee Animation */
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- 1. Navigation (Sticky Glass) -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-brand-accent to-brand-purple rounded-lg flex items-center justify-center text-white font-bold text-xl">Q</div>
+                    <span class="font-bold text-xl tracking-wider text-white">企易客<span class="font-light text-brand-muted">科技</span></span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-300 hover:text-white hover:text-brand-accent transition-colors text-sm font-medium">首页</a>
+                    <a href="#about" class="text-gray-300 hover:text-white hover:text-brand-accent transition-colors text-sm font-medium">关于我们</a>
+                    <a href="#services" class="text-gray-300 hover:text-white hover:text-brand-accent transition-colors text-sm font-medium">设计服务</a>
+                    <a href="#portfolio" class="text-gray-300 hover:text-white hover:text-brand-accent transition-colors text-sm font-medium">案例展示</a>
+                    <a href="#contact" class="px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-accent to-brand-purple text-white text-sm font-bold shadow-lg hover:shadow-cyan-500/20 transition-all transform hover:scale-105">
+                        联系我们
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-t border-gray-800 absolute w-full">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">首页</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">服务</a>
+                <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">案例</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-brand-accent font-bold">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section (Immersive) -->
+    <section id="home" class="relative h-screen flex items-center justify-center bg-hero-pattern bg-cover bg-center bg-fixed bg-no-repeat overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-dark"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up" data-aos-duration="1000">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-accent/10 border border-brand-accent/20 text-brand-accent text-xs font-semibold tracking-wide uppercase mb-6">
+                重庆企易客网络科技有限公司
+            </span>
+            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                设计重塑 <br>
+                <span class="text-gradient">商业价值与体验</span>
+            </h1>
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-300 font-light mb-10">
+                我们不仅仅是设计产品，我们在构建数字生态。从沙坪坝走向世界，用创新思维连接用户与未来。
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#services" class="px-8 py-4 rounded-full bg-white text-brand-dark font-bold hover:bg-gray-100 transition-colors shadow-lg">
+                    探索服务
+                </a>
+                <a href="#contact" class="px-8 py-4 rounded-full border border-gray-500 text-white font-medium hover:border-white hover:bg-white/5 transition-all">
+                    项目咨询
+                </a>
+            </div>
+        </div>
+        
+        <!-- Animated Scroll Down -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-gray-400 text-xl"></i>
+        </div>
+    </section>
+
+    <!-- 3. Brand Marquee (Dynamic) -->
+    <div class="bg-brand-dark border-b border-white/5 py-8">
+        <div class="marquee-container opacity-50 hover:opacity-100 transition-opacity">
+            <div class="marquee-content text-2xl font-bold text-gray-500 space-x-16">
+                <span>INNOVATION</span> <span>USER EXPERIENCE</span> <span>PRODUCT DESIGN</span> <span>STRATEGY</span> <span>DEVELOPMENT</span> <span>BRANDING</span>
+                <span>INNOVATION</span> <span>USER EXPERIENCE</span> <span>PRODUCT DESIGN</span> <span>STRATEGY</span> <span>DEVELOPMENT</span> <span>BRANDING</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Intro/About Snippet -->
+    <section id="about" class="py-24 bg-brand-dark relative">
+        <div class="blob bg-brand-accent w-64 h-64 rounded-full top-20 left-10"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div data-aos="fade-right">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">关于企易客</h2>
+                    <p class="text-gray-400 text-lg mb-6 leading-relaxed">
+                        重庆企易客网络科技有限公司坐落于充满活力的沙坪坝区，是一家专注于前沿产品设计与数字化解决方案的创新型企业。
+                    </p>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        我们深信，优秀的设计不仅是视觉的享受，更是解决问题的逻辑。通过集群注册的高效运营模式，我们将资源集中于核心创造力的输出，为客户提供从概念验证到产品落地的全链路服务。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="border-l-4 border-brand-accent pl-4">
+                            <h4 class="text-2xl font-bold text-white">50+</h4>
+                            <p class="text-sm text-gray-500">成功交付项目</p>
+                        </div>
+                        <div class="border-l-4 border-brand-purple pl-4">
+                            <h4 class="text-2xl font-bold text-white">100%</h4>
+                            <p class="text-sm text-gray-500">原创设计保障</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative" data-aos="fade-left">
+                    <img src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Office Creative Space" class="rounded-2xl shadow-2xl opacity-80 hover:opacity-100 transition-opacity duration-500">
+                    <div class="absolute -bottom-10 -left-10 bg-brand-card p-6 rounded-xl border border-white/10 shadow-xl hidden md:block">
+                        <p class="text-brand-accent font-bold text-lg">"设计驱动增长"</p>
+                        <p class="text-gray-500 text-sm">—— 我们的核心理念</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Core Philosophy (3 Cards) -->
+    <section class="py-20 bg-[#0f1623]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h3 class="text-brand-purple font-bold tracking-widest uppercase text-sm">我们的哲学</h3>
+                <h2 class="text-3xl text-white font-bold mt-2">如何打造极致产品</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-blue-500/20 rounded-full flex items-center justify-center text-blue-400 text-2xl mb-6">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">深度洞察</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        在动笔设计之前，我们深入研究用户行为、市场趋势与竞品分析，确保每一个像素都有据可依。
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 text-2xl mb-6">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">敏捷迭代</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        采用模块化设计思维，快速原型验证。我们拥抱变化，通过持续迭代打磨出最符合市场需求的产品形态。
+                    </p>
+                </div>
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 text-2xl mb-6">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">情感连接</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        超越功能的堆砌，我们注重微交互与视觉美学，让产品与用户建立情感纽带，提升品牌忠诚度。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Services Grid Header -->
+    <div id="services" class="pt-24 pb-12 bg-brand-dark text-center">
+        <h2 class="text-4xl font-bold text-white mb-4">全案设计服务体系</h2>
+        <p class="text-gray-400 max-w-2xl mx-auto">针对不同发展阶段的企业，提供定制化的解决方案</p>
+    </div>
+
+    <!-- 7, 8, 9. Detailed Service Blocks (Alternating) -->
+    <section class="py-12 bg-brand-dark">
+        <!-- Service 1 -->
+        <div class="max-w-7xl mx-auto px-4 mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <span class="w-8 h-1 bg-brand-accent"></span> UI/UX 交互体验设计
+                    </h3>
+                    <p class="text-gray-400 mb-6">
+                        专注于移动端APP、Web端SaaS平台及复杂B端系统的界面设计。我们通过构建清晰的信息架构和直观的操作流程，降低用户学习成本。
+                    </p>
+                    <ul class="space-y-2 text-gray-500 mb-8">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-brand-accent text-xs"></i> 用户画像与体验地图绘制</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-brand-accent text-xs"></i> 高保真界面设计 (High-Fi)</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-brand-accent text-xs"></i> 交互动效制作</li>
+                    </ul>
+                </div>
+                <div class="order-1 md:order-2" data-aos="fade-left">
+                    <img src="https://images.pexels.com/photos/193003/pexels-photo-193003.jpeg?auto=compress&cs=tinysrgb&w=800" alt="UI Design" class="rounded-lg shadow-2xl opacity-90 hover:scale-[1.02] transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="max-w-7xl mx-auto px-4 mb-24">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <img src="https://images.pexels.com/photos/326503/pexels-photo-326503.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Product Strategy" class="rounded-lg shadow-2xl opacity-90 hover:scale-[1.02] transition-transform duration-500">
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <span class="w-8 h-1 bg-brand-purple"></span> 产品策略与咨询
+                    </h3>
+                    <p class="text-gray-400 mb-6">
+                        在开发之前，先想清楚“为什么做”。我们协助初创团队梳理商业模式，定义MVP（最小可行性产品）范围，规避开发风险。
+                    </p>
+                    <ul class="space-y-2 text-gray-500 mb-8">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-brand-purple text-xs"></i> 竞品差异化分析</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-brand-purple text-xs"></i> 产品功能矩阵规划</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-brand-purple text-xs"></i> 数字化转型咨询</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <h3 class="text-2xl font-bold text-white mb-4 flex items-center gap-3">
+                        <span class="w-8 h-1 bg-pink-500"></span> 品牌识别与视觉系统
+                    </h3>
+                    <p class="text-gray-400 mb-6">
+                        统一的视觉语言是建立品牌信任的关键。我们为科技企业打造符合行业属性且极具辨识度的VIS视觉识别系统。
+                    </p>
+                    <ul class="space-y-2 text-gray-500 mb-8">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-pink-500 text-xs"></i> Logo设计与品牌规范</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-pink-500 text-xs"></i> 营销物料与演示文档设计</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-pink-500 text-xs"></i> 3D视觉渲染</li>
+                    </ul>
+                </div>
+                <div class="order-1 md:order-2" data-aos="fade-left">
+                    <img src="https://images.pexels.com/photos/1762851/pexels-photo-1762851.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Branding" class="rounded-lg shadow-2xl opacity-90 hover:scale-[1.02] transition-transform duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Process Section (Horizontal Scroll/Steps) -->
+    <section class="py-20 bg-[#0B1120] relative border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-white">标准化作业流程</h2>
+                <p class="text-gray-500 mt-2">Professional Workflow</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative p-6 border border-white/5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <span class="text-6xl font-bold text-white/5 absolute top-2 right-4 group-hover:text-brand-accent/10 transition-colors">01</span>
+                    <i class="fas fa-comments text-brand-accent text-3xl mb-4"></i>
+                    <h4 class="text-white font-bold text-lg mb-2">需求沟通</h4>
+                    <p class="text-gray-500 text-sm">明确业务目标，拆解需求痛点，签订保密协议。</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative p-6 border border-white/5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <span class="text-6xl font-bold text-white/5 absolute top-2 right-4 group-hover:text-brand-purple/10 transition-colors">02</span>
+                    <i class="fas fa-pencil-ruler text-brand-purple text-3xl mb-4"></i>
+                    <h4 class="text-white font-bold text-lg mb-2">原型设计</h4>
+                    <p class="text-gray-500 text-sm">输出交互线框图，确定功能逻辑与页面布局。</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="relative p-6 border border-white/5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <span class="text-6xl font-bold text-white/5 absolute top-2 right-4 group-hover:text-pink-500/10 transition-colors">03</span>
+                    <i class="fas fa-paint-brush text-pink-500 text-3xl mb-4"></i>
+                    <h4 class="text-white font-bold text-lg mb-2">视觉打造</h4>
+                    <p class="text-gray-500 text-sm">进行UI着色与风格定义，输出高保真设计稿。</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="relative p-6 border border-white/5 rounded-xl hover:bg-white/5 transition-colors group">
+                    <span class="text-6xl font-bold text-white/5 absolute top-2 right-4 group-hover:text-green-500/10 transition-colors">04</span>
+                    <i class="fas fa-rocket text-green-500 text-3xl mb-4"></i>
+                    <h4 class="text-white font-bold text-lg mb-2">交付与支持</h4>
+                    <p class="text-gray-500 text-sm">输出切图与标注，协助开发还原，确保持续迭代。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11, 12, 13. Portfolio Grid -->
+    <section id="portfolio" class="py-24 bg-brand-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold text-white mb-2">精选案例</h2>
+                    <p class="text-gray-400">探索我们如何用设计解决实际商业问题</p>
+                </div>
+                <a href="#" class="text-brand-accent hover:text-white transition-colors mt-4 md:mt-0 font-medium">查看全部案例 <i class="fas fa-arrow-right ml-2"></i></a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group relative overflow-hidden rounded-xl cursor-pointer" data-aos="fade-up">
+                    <img src="https://picsum.photos/id/1/600/800" alt="Tech Dashboard" class="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-brand-accent text-xs font-bold uppercase tracking-wider mb-2 block">FinTech</span>
+                        <h3 class="text-2xl font-bold text-white mb-2">智能金融数据大屏</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">为金融机构打造的实时数据可视化决策系统，提升数据洞察效率30%。</p>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group relative overflow-hidden rounded-xl cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://picsum.photos/id/119/600/800" alt="Smart Home App" class="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-brand-purple text-xs font-bold uppercase tracking-wider mb-2 block">IoT / Smart Home</span>
+                        <h3 class="text-2xl font-bold text-white mb-2">未来家·智能控制APP</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">极简主义风格的智能家居控制中心，整合全屋硬件生态。</p>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="group relative overflow-hidden rounded-xl cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://picsum.photos/id/160/600/800" alt="E-commerce" class="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-0 left-0 p-8 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <span class="text-pink-500 text-xs font-bold uppercase tracking-wider mb-2 block">E-Commerce</span>
+                        <h3 class="text-2xl font-bold text-white mb-2">跨境电商SAAS平台</h3>
+                        <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">重构复杂的后台订单管理逻辑，打造B2B高效作业界面。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. Data Counter -->
+    <div class="bg-gradient-to-r from-brand-accent to-brand-purple py-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+            <div>
+                <div class="text-4xl font-bold mb-2">3+</div>
+                <div class="text-sm opacity-80">成立年限</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold mb-2">150+</div>
+                <div class="text-sm opacity-80">设计页面总数</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold mb-2">24h</div>
+                <div class="text-sm opacity-80">极速响应</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold mb-2">98%</div>
+                <div class="text-sm opacity-80">客户好评率</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 15. Why Choose Us (Feature List) -->
+    <section class="py-20 bg-brand-dark">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">为什么选择企易客？</h2>
+            <div class="space-y-6">
+                <div class="flex items-start gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 flex-shrink-0">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">本地化服务优势</h4>
+                        <p class="text-gray-400 text-sm mt-1">立足重庆沙坪坝，辐射西南。我们不仅提供线上沟通，更支持本地上门深度调研，拒绝异地沟通壁垒。</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 flex-shrink-0">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">设计与开发无缝衔接</h4>
+                        <p class="text-gray-400 text-sm mt-1">我们的设计团队懂技术，交付物充分考虑前端实现难度，确保设计稿100%还原落地。</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 p-4 rounded-lg hover:bg-white/5 transition-colors">
+                    <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center text-yellow-400 flex-shrink-0">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-white font-bold text-lg">极具性价比的集群模式</h4>
+                        <p class="text-gray-400 text-sm mt-1">通过工农坡集群注册模式，我们大幅降低了非核心运营成本，将更多预算回馈给客户，提供超高性价比的设计服务。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 16. Testimonial / Quote -->
+    <section class="py-20 bg-[#0f1623] text-center px-4">
+        <div class="max-w-3xl mx-auto" data-aos="zoom-in">
+            <i class="fas fa-quote-left text-4xl text-brand-accent/30 mb-6"></i>
+            <h3 class="text-2xl md:text-3xl text-white font-light italic mb-8">
+                "企易客团队不仅帮我们重设计了APP界面，更帮我们梳理了整个业务流程。专业、高效，是值得信赖的合作伙伴。"
+            </h3>
+            <div class="flex items-center justify-center gap-4">
+                <img src="https://picsum.photos/id/1005/100/100" class="w-12 h-12 rounded-full border-2 border-brand-accent" alt="Client">
+                <div class="text-left">
+                    <div class="text-white font-bold">李总</div>
+                    <div class="text-gray-500 text-xs">某科技公司 CEO</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 17. Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden bg-brand-dark">
+        <!-- Decoration -->
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-gradient-to-l from-brand-card to-transparent hidden lg:block"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <div data-aos="fade-right">
+                    <h2 class="text-4xl font-bold text-white mb-6">准备好开启下一个项目了吗？</h2>
+                    <p class="text-gray-400 mb-10 text-lg">
+                        无论您是有具体的项目需求，还是仅仅想探讨一个创新的想法，我们都随时欢迎您的联络。
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-brand-accent text-xl">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">公司地址</h4>
+                                <p class="text-gray-400">重庆市沙坪坝区工农坡77号附9号1-158<br><span class="text-xs text-gray-500">（集群注册）</span></p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-brand-purple text-xl">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">电子邮箱</h4>
+                                <a href="mailto:info@cqqiyiketech.asia" class="text-gray-400 hover:text-white transition-colors">info@cqqiyiketech.asia</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center text-pink-500 text-xl">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-lg">联系电话</h4>
+                                <a href="tel:18267073713" class="text-gray-400 hover:text-white transition-colors">18267073713</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-8 rounded-2xl" data-aos="fade-left">
+                    <form onsubmit="event.preventDefault(); alert('感谢您的留言，我们会尽快联系您！');">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-gray-400 text-sm mb-2">姓名</label>
+                                <input type="text" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="您的称呼">
+                            </div>
+                            <div>
+                                <label class="block text-gray-400 text-sm mb-2">电话</label>
+                                <input type="tel" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="联系方式">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-400 text-sm mb-2">邮箱</label>
+                            <input type="email" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-gray-400 text-sm mb-2">项目描述</label>
+                            <textarea rows="4" class="w-full bg-brand-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-accent transition-colors" placeholder="简单描述您的需求..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-brand-accent to-brand-purple text-white font-bold py-4 rounded-lg hover:opacity-90 transition-opacity shadow-lg">
+                            发送消息
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 18. Footer -->
+    <footer class="bg-[#050911] pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-6">
+                         <div class="w-8 h-8 bg-gradient-to-br from-brand-accent to-brand-purple rounded flex items-center justify-center text-white font-bold text-sm">Q</div>
+                        <span class="text-white font-bold text-lg">企易客科技</span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        致力于为企业提供具有前瞻性的设计与技术解决方案，助力品牌在数字时代脱颖而出。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-6">服务导航</h4>
+                    <ul class="space-y-3 text-gray-500 text-sm">
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">UI/UX 设计</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">Web 开发</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">品牌策略</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">数字化咨询</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">快速链接</h4>
+                    <ul class="space-y-3 text-gray-500 text-sm">
+                        <li><a href="#about" class="hover:text-brand-accent transition-colors">关于我们</a></li>
+                        <li><a href="#portfolio" class="hover:text-brand-accent transition-colors">最新案例</a></li>
+                        <li><a href="#contact" class="hover:text-brand-accent transition-colors">加入我们</a></li>
+                        <li><a href="#" class="hover:text-brand-accent transition-colors">隐私政策</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-6">关注我们</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-accent hover:text-white transition-all">
+                            <i class="fab fa-weixin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-brand-purple hover:text-white transition-all">
+                            <i class="fab fa-weibo"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-pink-500 hover:text-white transition-all">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 text-sm text-center md:text-left mb-4 md:mb-0">
+                    &copy; 2024 重庆企易客网络科技有限公司 版权所有
+                </p>
+                <p class="text-gray-700 text-xs">
+                    Designed with <i class="fas fa-heart text-red-900"></i> in Chongqing
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="fixed bottom-8 right-8 bg-brand-accent text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center transform translate-y-20 opacity-0 transition-all duration-300 hover:bg-brand-purple z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize Animations
+        AOS.init({
+            once: true,
+            offset: 100,
+            duration: 800,
+            easing: 'ease-out-cubic',
+        });
+
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar Glass Effect on Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.classList.replace('py-4', 'py-0'); // Compact height
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Scroll to Top Logic
+        const scrollBtn = document.getElementById('scrollToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollBtn.classList.remove('translate-y-20', 'opacity-0');
+            } else {
+                scrollBtn.classList.add('translate-y-20', 'opacity-0');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
